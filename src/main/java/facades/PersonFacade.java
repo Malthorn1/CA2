@@ -1,10 +1,13 @@
 package facades;
 
+import dto.PersonDTO;
+import entities.Address;
 import entities.Person;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -16,7 +19,7 @@ public class PersonFacade {
     private static EntityManagerFactory emf;
     
     //Private Constructor to ensure Singleton
-    private PersonFacade() {}
+    
     
     
     /**
@@ -40,12 +43,63 @@ public class PersonFacade {
     public long getPersonCount(){
         EntityManager em = emf.createEntityManager();
         try{
-            long renameMeCount = (long)em.createQuery("SELECT COUNT(p) FROM Person p").getSingleResult();
-            return renameMeCount;
+            long personCount = (long)em.createQuery("SELECT COUNT(p) FROM Person p").getSingleResult();
+            return personCount;
         }finally{  
             em.close();
         }
         
+    }
+    
+    public List<PersonDTO> getAllPersons(){
+        EntityManager em = emf.createEntityManager();
+        try{
+            TypedQuery<Person> q = em.createQuery("SELECT p from Person p", Person.class);
+            List<Person> persons = q.getResultList();
+            List<PersonDTO> pDTO = new ArrayList<>();
+            for (Person person : persons) {
+                PersonDTO pdto = new PersonDTO(person);
+                pDTO.add(pdto);
+            }
+            return pDTO;
+        }finally{
+            em.close();
+        }
+    }
+    
+    public PersonDTO getPerson(int id){
+        EntityManager em = emf.createEntityManager();
+        try{
+            Person p = em.find(Person.class, (long)id);
+            return new PersonDTO(p);
+        }finally{
+            em.close();
+        }
+    }
+    
+    public void addPerson(Person person){
+        EntityManager em = emf.createEntityManager();
+        try{
+            em.getTransaction().begin();
+            em.persist(person);
+            em.getTransaction().commit();
+        }finally{
+            em.close();
+        }
+    }
+    
+    public Person addAddress(Person person, Address address){
+        EntityManager em = emf.createEntityManager();
+        person.setAddress(address);
+        
+        try{
+            em.getTransaction().begin();
+            em.merge(person);
+            em.getTransaction().commit();
+        }finally{
+            em.close();
+        }
+        return person;
     }
 
 }

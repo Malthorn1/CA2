@@ -1,16 +1,20 @@
 package facades;
 
+import dto.PersonDTO;
+import entities.Address;
 import utils.EMF_Creator;
 import entities.Person;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import utils.Settings;
+import static sun.jvm.hotspot.code.CompressedStream.L;
 import utils.EMF_Creator.DbSelector;
 import utils.EMF_Creator.Strategy;
 
@@ -60,8 +64,15 @@ public class PersonFacadeTest {
         try {
             em.getTransaction().begin();
             em.createNamedQuery("Person.deleteAllRows").executeUpdate();
-            em.persist(new Person("batman@arto.dk", "batman", "batmansen"));
-            em.persist(new Person("superman@arto.dk", "superman", "supermansen"));
+            Person p1 = new Person("batman@arto.dk", "batman", "batmansen");
+            
+            Person p2 = new Person("superman@arto.dk", "superman", "supermansen");
+            p1.setAddress(new Address("Valbylanggade", "den er lang"));
+            p2.setAddress(new Address("valdemarsgade", "LOL"));
+            
+            em.persist(p1);
+            em.persist(p2);
+            
 
             em.getTransaction().commit();
         } finally {
@@ -79,5 +90,25 @@ public class PersonFacadeTest {
     public void testAFacadeMethod() {
         assertEquals(2, facade.getPersonCount(), "Expects two rows in the database");
     }
+    
+    
+    @Test
+    public void testGetAllPersons(){
+        assertEquals(2, facade.getAllPersons().size());
+    }
+    
+//    @Test
+//    public void testGetPerson(){
+//        List<PersonDTO> p = facade.getAllPersons();
+//        String fName = p.get(0).getFirstName();
+//        String lName = p.get(0).getLastName();
+//        String email = p.get(0).getEmail();
+//        Long fakeid = p.get(0).getId();
+//        int id = (int)fakeid;
+//        
+//        assertTrue(facade.getPerson(p.get(0).getId()).getFirstName().contains(fName));
+//        assertTrue(facade.getPerson(1).getLastName().contains(lName));
+//        assertTrue(facade.getPerson(1).getEmail().contains(email));
+//    }
 
 }
