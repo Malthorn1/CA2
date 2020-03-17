@@ -37,8 +37,8 @@ public class Person implements Serializable {
     private Address address;
     @OneToMany(mappedBy="person", cascade = { CascadeType.MERGE, CascadeType.PERSIST })
     private List<Phone> phones = new ArrayList<>();
-    @ManyToMany
-    private Set<Hobby> hobbies;
+    //@ManyToMany(cascade = CascadeType.PERSIST)
+    //private Set<Hobby> hobbies;
     
 
     public Person(String email, String firstName, String lastName) {
@@ -102,14 +102,15 @@ public class Person implements Serializable {
         phone.setPerson(this);
     }
 
-    public Set<Hobby> getHobbies() {
-        return hobbies;
-    }
-
-    public void setHobbies(Set<Hobby> hobbies) {
-        this.hobbies = hobbies;
-    }
-    
+//    public Set<Hobby> getHobbies() {
+//        return hobbies;
+//    }
+//
+//    
+//    public void addHobby(Hobby hobby){
+//        this.hobbies.add(hobby);
+//        
+//    }
     
     
     

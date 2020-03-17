@@ -6,11 +6,13 @@
 package main;
 
 import entities.Address;
+import entities.Hobby;
 import entities.Person;
+import entities.Phone;
 import facades.AddressFacade;
 import facades.PersonFacade;
+import java.util.Set;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import utils.EMF_Creator;
 
 /**
@@ -33,6 +35,12 @@ public class EntityTest {
         
         Person aske = new Person("aske@punani.dk", "Aske", "Thorsen");
         Address askeaddress = new Address("Punanigdade", "nede på hjørnet");
+        Phone askephone = new Phone(42131388, "Hjem");
+        Hobby askehobby = new Hobby("Ridning", "Det er sjovt");
+        Hobby askehobby2 = new Hobby("Rollespil", "Det er i den mørke skov");
+        pf.addPhone(aske, askephone);
+//        pf.addHobby(aske, askehobby);
+//        pf.addHobby(aske, askehobby2);
         pf.addAddress(aske, askeaddress);
         pf.addPerson(aske);
         

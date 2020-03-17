@@ -6,7 +6,10 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -26,7 +29,8 @@ public class Hobby implements Serializable {
     private Long id;
     private String name;
     private String description;
-    
+//    @ManyToMany(mappedBy = "hobbies")
+//    private Person person;
     
     
     public Hobby(String name, String description) {
@@ -61,6 +65,14 @@ public class Hobby implements Serializable {
     public void setDescription(String description) {
         this.description = description;
     }
+
+//    public Person getPersons() {
+//        return person;
+//    }
+//
+//    public void setPerson(Person person) {
+//        this.person = person;
+//    }
 
    
     

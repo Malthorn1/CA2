@@ -2,9 +2,12 @@ package facades;
 
 import dto.PersonDTO;
 import entities.Address;
+import entities.Hobby;
 import entities.Person;
+import entities.Phone;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.TypedQuery;
@@ -101,5 +104,33 @@ public class PersonFacade {
         }
         return person;
     }
+    
+    public Person addPhone(Person person, Phone phone){
+        EntityManager em = emf.createEntityManager();
+        person.addPhones(phone);
+        
+        try{
+            em.getTransaction().begin();
+            em.merge(person);
+            em.getTransaction().commit();
+        }finally{
+            em.close();
+        }
+        return person;
+    }
+    
+//    public Person addHobby(Person person, Hobby hobby){
+//        EntityManager em = emf.createEntityManager();
+//        person.addHobby(hobby);
+//        
+//        try{
+//            em.getTransaction().begin();
+//            em.merge(person);
+//            em.getTransaction().commit();
+//        }finally{
+//            em.close();
+//        }
+//        return person;
+//    }
 
 }
