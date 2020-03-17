@@ -5,7 +5,10 @@
  */
 package dto;
 
+import entities.Address;
 import entities.Person;
+import entities.Phone;
+import java.util.List;
 
 /**
  *
@@ -17,11 +20,15 @@ public class PersonDTO {
     private String firstName;
     private String lastName;
     private long id;
+    private Address address;
+    private List<Phone> phones;
     public PersonDTO(Person person) {
         this.email = person.getEmail();
         this.firstName = person.getFirstName();
         this.lastName = person.getLastName();
         this.id = person.getId();
+        this.address = person.getAddress();
+        this.phones = person.getPhones();
     }
     
     public PersonDTO(){}
@@ -53,6 +60,24 @@ public class PersonDTO {
     public Long getId() {
         return id;
     }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public List<Phone> getPhones() {
+        return phones;
+    }
+
+    public void setPhones(List<Phone> phones) {
+        this.phones = phones;
+    }
+    
+    
     
     
     
