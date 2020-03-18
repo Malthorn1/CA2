@@ -20,14 +20,22 @@ public class PersonDTO {
     private String firstName;
     private String lastName;
     private long id;
-    private Address address;
+    private String street; 
+    private String additionalInfo; 
+    private String city; 
+    private int zipCode; 
     private List<Phone> phones;
+    
+    
     public PersonDTO(Person person) {
         this.email = person.getEmail();
         this.firstName = person.getFirstName();
         this.lastName = person.getLastName();
         this.id = person.getId();
-      //  this.address = person.getAddress();
+        this.street = person.getAddress().getStreet();
+        this.additionalInfo = person.getAddress().getAdditionalInfo(); 
+        this.city = person.getAddress().getCityinfo().getCity();
+        this.zipCode = person.getAddress().getCityinfo().getZipCode();
         this.phones = person.getPhones();
     }
     
@@ -57,17 +65,16 @@ public class PersonDTO {
         this.lastName = lastName;
     }
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public Address getAddress() {
-        return address;
+    public void setId(long id) {
+        this.id = id;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
-    }
+ 
+    
 
     public List<Phone> getPhones() {
         return phones;
@@ -76,6 +83,32 @@ public class PersonDTO {
     public void setPhones(List<Phone> phones) {
         this.phones = phones;
     }
+
+    public int getZipCode() {
+        return zipCode;
+    }
+
+    public void setZipCode(int zipCode) {
+        this.zipCode = zipCode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getStreet() {
+        return street;
+    }
+
+    public void setStreet(String street) {
+        this.street = street;
+    }
+    
+    
     
     
     
