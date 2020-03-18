@@ -42,7 +42,7 @@ public class EntityTest {
 //        pf.addHobby(aske, askehobby);
 //        pf.addHobby(aske, askehobby2);
         pf.addAddress(aske, askeaddress);
-        pf.addPerson(aske);
+        pf.addPerson(aske.getEmail(),aske.getFirstName(),aske.getLastName());
         
     }
     

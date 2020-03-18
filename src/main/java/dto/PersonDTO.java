@@ -30,6 +30,14 @@ public class PersonDTO {
         this.address = person.getAddress();
         this.phones = person.getPhones();
     }
+
+    public PersonDTO(String email, String firstName, String lastName) {
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+    
+    
     
     public PersonDTO(){}
 

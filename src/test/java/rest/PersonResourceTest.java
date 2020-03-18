@@ -1,11 +1,15 @@
 package rest;
 
+import dto.PersonDTO;
 import entities.Person;
 import utils.EMF_Creator;
 import io.restassured.RestAssured;
 import static io.restassured.RestAssured.given;
+import io.restassured.http.ContentType;
 import io.restassured.parsing.Parser;
 import java.net.URI;
+import java.util.HashMap;
+import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.core.UriBuilder;
@@ -104,4 +108,24 @@ public class PersonResourceTest {
         .statusCode(HttpStatus.OK_200.getStatusCode())
         .body("count", equalTo(2));   
     }
+    
+    @Test
+    public void testAddPerson() {
+
+        Map<String, String> content = new HashMap<>();
+        
+        content.put("firstName", "testFName");
+        content.put("lastName", "testLName");
+        content.put("email", "123232");
+        given()
+                .contentType(ContentType.JSON)
+                .with()
+                .body(new PersonDTO("123232","testFName", "testLName"))
+                .when()
+                .post("/person/add")
+                .then()
+                .body("firstName", equalTo("testFName"), "lastName", equalTo("testLName"));
+    }
+    
+
 }

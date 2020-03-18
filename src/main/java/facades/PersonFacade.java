@@ -80,12 +80,15 @@ public class PersonFacade {
         }
     }
     
-    public void addPerson(Person person){
+    public PersonDTO addPerson(String email, String firstName, String lastName){
+        Person person = new Person(email, firstName, lastName);
         EntityManager em = emf.createEntityManager();
         try{
             em.getTransaction().begin();
             em.persist(person);
             em.getTransaction().commit();
+            PersonDTO pdto = new PersonDTO(person.getEmail(),person.getFirstName(),person.getLastName());
+            return pdto;
         }finally{
             em.close();
         }
