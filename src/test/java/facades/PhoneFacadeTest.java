@@ -96,15 +96,17 @@ public class PhoneFacadeTest {
         assertEquals(1, facade.getPhoneCount(), "Expects one rows in the database");
     }
     
-//    
-//    @Test
-//    public void testGetAllPersons(){
-//        assertEquals(2, facade.getAllPersons().size());
-//    }
+    
+    @Test
+    public void testGetAllPersons(){
+        assertEquals(2, facade.getAllPersons().size());
+    }
     
     @Test
     public void getPersonByPhoneNumber () {
-        PersonDTO p = facade.getPersonByPhoneNumber(42131388); 
+        int phonenumber  = 42131388; 
+        Person p = facade.getPersonByPhoneNumber(phonenumber); 
+       
         
         assertEquals(p.getFirstName(), "batman");
     }

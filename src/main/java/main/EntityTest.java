@@ -6,6 +6,7 @@
 package main;
 
 import entities.Address;
+import entities.CityInfo;
 import entities.Hobby;
 import entities.Person;
 import entities.Phone;
@@ -34,15 +35,29 @@ public class EntityTest {
         AddressFacade af = new AddressFacade();
         
         Person aske = new Person("aske@punani.dk", "Aske", "Thorsen");
+        Person jens = new Person ("Jens@punani.dk", "Jens", "Ohlendorf"); 
+        Address jensaddress = new Address("Nybrovej", "Opgang A stuen"); 
         Address askeaddress = new Address("Punanigdade", "nede på hjørnet");
+        Phone jensphone = new Phone (10102020, "Mobil"); 
         Phone askephone = new Phone(42131388, "Hjem");
+        CityInfo lyngby = new CityInfo (2800, "Lyngby"); 
+        CityInfo CPHS = new CityInfo (2300, "Copenhagen S" ) ; 
+        jensaddress.setCityinfo(lyngby);
+        askeaddress.setCityinfo(CPHS);
+        
         Hobby askehobby = new Hobby("Ridning", "Det er sjovt");
         Hobby askehobby2 = new Hobby("Rollespil", "Det er i den mørke skov");
-        pf.addPhone(aske, askephone);
+        
+        
+       // pf.addPhone(aske, askephone);
+        
 //        pf.addHobby(aske, askehobby);
 //        pf.addHobby(aske, askehobby2);
-        pf.addAddress(aske, askeaddress);
+
         pf.addPerson(aske);
+        pf.addPerson(jens);
+        pf.addAddress(aske, askeaddress);
+        pf.addAddress(jens, jensaddress); 
         
     }
     

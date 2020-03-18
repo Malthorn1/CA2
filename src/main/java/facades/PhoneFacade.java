@@ -54,22 +54,37 @@ public class PhoneFacade {
         
         }
     
-        public PersonDTO getPersonByPhoneNumber(int number){
+        public Person getPersonByPhoneNumber(int number){
         EntityManager em = emf.createEntityManager();
         try{
             List<Phone> query =  em.createQuery("SELECT c FROM Phone c where c.number like :number", Phone.class ) 
                     .setParameter("number", number)
                     .getResultList() ;
             Person p = em.find(Person.class, (long) query.get(0).getId()) ;
-            return new PersonDTO(p);
+            PersonDTO p2 = new PersonDTO(p) ; 
+            return p; 
         }finally{
             em.close();
         }
     }
     
+    public List<PersonDTO> getAllPersons(){
+        EntityManager em = emf.createEntityManager();
+        try{
+            TypedQuery<Person> q = em.createQuery("SELECT p from Person p", Person.class);
+            List<Person> persons = q.getResultList();
+            List<PersonDTO> pDTO = new ArrayList<>();
+            for (Person person : persons) {
+                PersonDTO pdto = new PersonDTO(person);
+                pDTO.add(pdto);
+            }
+            return pDTO;
+        }finally{
+            em.close();
+        }
+    }
     
-    
-//    //TODO Remove/Change this before use
+    //    //TODO Remove/Change this before use
 //    public long getPersonCount(){
 //        EntityManager em = emf.createEntityManager();
 //        try{
@@ -81,21 +96,6 @@ public class PhoneFacade {
 //        
 //    }
 //    
-//    public List<PersonDTO> getAllPersons(){
-//        EntityManager em = emf.createEntityManager();
-//        try{
-//            TypedQuery<Person> q = em.createQuery("SELECT p from Person p", Person.class);
-//            List<Person> persons = q.getResultList();
-//            List<PersonDTO> pDTO = new ArrayList<>();
-//            for (Person person : persons) {
-//                PersonDTO pdto = new PersonDTO(person);
-//                pDTO.add(pdto);
-//            }
-//            return pDTO;
-//        }finally{
-//            em.close();
-//        }
-//    }
 //    
 //    
 //    public void addPerson(Person person){

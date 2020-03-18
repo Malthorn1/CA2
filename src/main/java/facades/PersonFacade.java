@@ -94,7 +94,6 @@ public class PersonFacade {
     public Person addAddress(Person person, Address address){
         EntityManager em = emf.createEntityManager();
         person.setAddress(address);
-        
         try{
             em.getTransaction().begin();
             em.merge(person);

@@ -1,6 +1,7 @@
 package facades;
 
 import entities.Address;
+import entities.Person;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 
@@ -56,6 +57,20 @@ public class AddressFacade {
         }finally{
             em.close();
         }
+    }
+    
+        public Person addCityInfo(Person person, Address address){
+        EntityManager em = emf.createEntityManager();
+        person.setAddress(address);
+        
+        try{
+            em.getTransaction().begin();
+            em.merge(person);
+            em.getTransaction().commit();
+        }finally{
+            em.close();
+        }
+        return person;
     }
 
 }
