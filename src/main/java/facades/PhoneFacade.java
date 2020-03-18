@@ -57,18 +57,10 @@ public class PhoneFacade {
         public PersonDTO getPersonByPhoneNumber(int number){
         EntityManager em = emf.createEntityManager();
         try{
-
             List<Phone> query =  em.createQuery("SELECT c FROM Phone c where c.number like :number", Phone.class ) 
-                    .setParameter("number", number).getResultList() ;
-            
-            
-           // Person p  = em.createQuery("Select c from Person c where c.")
-            
+                    .setParameter("number", number)
+                    .getResultList() ;
             Person p = em.find(Person.class, (long) query.get(0).getId()) ;
-            System.out.println(p.getFirstName());
-            
-            
-            
             return new PersonDTO(p);
         }finally{
             em.close();
