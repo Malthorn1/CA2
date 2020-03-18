@@ -27,7 +27,7 @@ public class PersonDTO {
         this.firstName = person.getFirstName();
         this.lastName = person.getLastName();
         this.id = person.getId();
-        this.address = person.getAddress();
+      //  this.address = person.getAddress();
         this.phones = person.getPhones();
     }
     

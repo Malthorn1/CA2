@@ -49,7 +49,7 @@ public class EntityTest {
         Hobby askehobby2 = new Hobby("Rollespil", "Det er i den mørke skov");
         
         
-       // pf.addPhone(aske, askephone);
+        pf.addPhone(aske, askephone);
         
 //        pf.addHobby(aske, askehobby);
 //        pf.addHobby(aske, askehobby2);
