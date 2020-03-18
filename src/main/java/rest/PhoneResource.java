@@ -45,7 +45,7 @@ public class PhoneResource {
     @Path("test/{number}")
     @Produces({MediaType.APPLICATION_JSON}) 
     public String getPersonByPhoneNumber(@PathParam("number") int number) {      
-        return new GSON.toJson(FACADE.getPersonByPhoneNumber(number)); 
+        return GSON.toJson(FACADE.getPersonByPhoneNumber(number)); 
     }
     
     
