@@ -44,16 +44,8 @@ public class PhoneResource {
     @GET
     @Path("test/{number}")
     @Produces({MediaType.APPLICATION_JSON}) 
-    public String getPersonByPhoneNumber(@PathParam("number") int number) {
-        
-        PersonDTO p = FACADE.getPersonByPhoneNumber(number) ; 
-        System.out.println(p.getEmail());
-        String d = GSON.toJson(p); 
-        System.out.println(d);
-        
-      //  String d = new Gson().toJson(FACADE.getPersonByPhoneNumber(number));
-        
-        return d ; 
+    public String getPersonByPhoneNumber(@PathParam("number") int number) {      
+        return new GSON.toJson(FACADE.getPersonByPhoneNumber(number)); 
     }
     
     
