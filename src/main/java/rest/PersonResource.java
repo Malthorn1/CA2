@@ -46,7 +46,18 @@ public class PersonResource {
         return "{\"count\":"+count+"}";  //Done manually so no need for a DTO
     }
     
-     @Path("add")
+    
+    
+    @Path("all")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getAllPersons(){
+        return GSON.toJson(FACADE.getAllPersons());
+    }
+    
+    
+    
+    @Path("add")
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)

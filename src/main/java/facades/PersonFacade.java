@@ -1,6 +1,7 @@
 package facades;
 
 import dto.PersonDTO;
+import dto.PersonsDTO;
 import entities.Address;
 import entities.Hobby;
 import entities.Person;
@@ -54,17 +55,11 @@ public class PersonFacade {
         
     }
     
-    public List<PersonDTO> getAllPersons(){
-        EntityManager em = emf.createEntityManager();
+    public PersonsDTO getAllPersons(){
+        EntityManager em = getEntityManager();
         try{
-            TypedQuery<Person> q = em.createQuery("SELECT p from Person p", Person.class);
-            List<Person> persons = q.getResultList();
-            List<PersonDTO> pDTO = new ArrayList<>();
-            for (Person person : persons) {
-                PersonDTO pdto = new PersonDTO(person);
-                pDTO.add(pdto);
-            }
-            return pDTO;
+            TypedQuery<Person> query = em.createQuery("SELECT p from Person p", Person.class);
+            return new PersonsDTO(query.getResultList());
         }finally{
             em.close();
         }

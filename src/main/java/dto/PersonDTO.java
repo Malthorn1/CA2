@@ -20,15 +20,13 @@ public class PersonDTO {
     private String firstName;
     private String lastName;
     private long id;
-    private Address address;
-    private List<Phone> phones;
+    
     public PersonDTO(Person person) {
         this.email = person.getEmail();
         this.firstName = person.getFirstName();
         this.lastName = person.getLastName();
         this.id = person.getId();
-        this.address = person.getAddress();
-        this.phones = person.getPhones();
+        
     }
 
     public PersonDTO(String email, String firstName, String lastName) {
@@ -69,22 +67,7 @@ public class PersonDTO {
         return id;
     }
 
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public List<Phone> getPhones() {
-        return phones;
-    }
-
-    public void setPhones(List<Phone> phones) {
-        this.phones = phones;
-    }
-    
+   
     
     
     
