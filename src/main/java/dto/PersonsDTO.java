@@ -19,7 +19,13 @@ public class PersonsDTO {
     
     public PersonsDTO(List<Person> personEntities){
         for (Person personEntity : personEntities) {
-            all.add(new PersonDTO(personEntity));
+            all.add(new PersonDTO(personEntity.getFirstName(),
+                    personEntity.getLastName(),
+                    personEntity.getEmail(),
+                    new AddressDTO(personEntity.getAddress().getStreet(),
+                            personEntity.getAddress().getAdditionalInfo()),
+                     
+                    new PhonesDTO(personEntity.getPhones())));
         }
     }
 

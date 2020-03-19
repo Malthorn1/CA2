@@ -109,23 +109,23 @@ public class PersonResourceTest {
         .body("count", equalTo(2));   
     }
     
-    @Test
-    public void testAddPerson() {
-
-        Map<String, String> content = new HashMap<>();
-        
-        content.put("firstName", "testFName");
-        content.put("lastName", "testLName");
-        content.put("email", "123232");
-        given()
-                .contentType(ContentType.JSON)
-                .with()
-                .body(new PersonDTO("123232","testFName", "testLName"))
-                .when()
-                .post("/person/add")
-                .then()
-                .body("firstName", equalTo("testFName"), "lastName", equalTo("testLName"));
-    }
+//    @Test
+//    public void testAddPerson() {
+//
+//        Map<String, String> content = new HashMap<>();
+//        
+//        content.put("firstName", "testFName");
+//        content.put("lastName", "testLName");
+//        content.put("email", "123232");
+//        given()
+//                .contentType(ContentType.JSON)
+//                .with()
+//                .body(new PersonDTO("123232","testFName", "testLName"))
+//                .when()
+//                .post("/person/add")
+//                .then()
+//                .body("firstName", equalTo("testFName"), "lastName", equalTo("testLName"));
+//    }
     
 
 }
