@@ -49,7 +49,7 @@ public class EntityTest {
         
         
         
-        pf.addPhone(aske);
+        
         
         
         pf.addAddress(aske, askeaddress);

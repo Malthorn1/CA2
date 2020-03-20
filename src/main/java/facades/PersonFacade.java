@@ -1,7 +1,10 @@
 package facades;
 
+import dto.AddressDTO;
+import dto.CityInfoDTO;
 import dto.PersonDTO;
 import dto.PersonsDTO;
+import dto.PhonesDTO;
 import entities.Address;
 import entities.Hobby;
 import entities.Person;
@@ -69,7 +72,12 @@ public class PersonFacade {
         EntityManager em = emf.createEntityManager();
         try{
             Person p = em.find(Person.class, (long)id);
-            return new PersonDTO(p);
+            return new PersonDTO(p.getEmail(),
+                    p.getFirstName(),
+                    p.getLastName(),
+                    new AddressDTO(p.getAddress().getStreet(), p.getAddress().getAdditionalInfo(),
+                            new CityInfoDTO(p.getAddress().getCityinfo().getZipCode(), p.getAddress().getCityinfo().getCity())),
+                    new PhonesDTO(p.getPhones()));
         }finally{
             em.close();
         }
