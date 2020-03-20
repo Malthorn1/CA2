@@ -2,6 +2,7 @@ package facades;
 
 import dto.PersonDTO;
 import entities.Person;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -56,12 +57,16 @@ public class CityInfoFacade {
                     .setParameter("zipcode", zipcode);
             
            
-                    
-            List<PersonDTO> persons = q.getResultList();
-            System.out.println("LIST SIZE === " + persons.size());
+            List<Person> persons = q.getResultList();
+            List<PersonDTO> pDTOs = new ArrayList<>();
+            for (Person person : persons) {
+                pDTOs.add(new PersonDTO(person));
+            }
+            
+            
             
           
-            return persons;
+            return pDTOs;
         } finally {
             em.close();
         }
