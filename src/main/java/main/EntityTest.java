@@ -33,26 +33,37 @@ public class EntityTest {
         PersonFacade pf = PersonFacade.getFacadeExample(emf);
         
         CityInfo askeby = new CityInfo(2450, "Sydhavn");
-        
+        CityInfo Jensby = new CityInfo(2800, "Lyngby");        
         
         Person aske = pf.addPerson("aske@thorsen.dk", "Aske", "Thorsen");
+        Person jens = pf.addPerson("jens@derp.dk", "Jens", "ohhlends"); 
         Address askeaddress = new Address("Thorsengade", "nede på hjørnet");
+        Address Jensaddress = new Address("Nybrovej", "Stuen A");
         askeaddress.setCityinfo(askeby);
+        Jensaddress.setCityinfo(Jensby);
         
         Phone askehjem = new Phone("42131388", "Hjem");
         Phone askearbejde = new Phone("123585885", "Arbejde");
+        Phone Jenshjem = new Phone("88888", "HHome");
+        Phone Jensarbejde = new Phone("9999999", "WORK");
+        
+        jens.addPhones(Jenshjem);
+        jens.addPhones(Jensarbejde);
         aske.addPhones(askehjem);
         aske.addPhones(askearbejde);
         
         Hobby askehobby = new Hobby("Ridning", "Det er sjovt");
         Hobby askehobby2 = new Hobby("Rollespil", "Det er i den mørke skov");
         
+        Hobby jenshobby = new Hobby("ComputerSpil", "fun");
+        Hobby jenshobby2 = new Hobby("DDDD", "kkkk");
         
         
         
         
         
         pf.addAddress(aske, askeaddress);
+        pf.addAddress(jens, Jensaddress); 
         
     }
     

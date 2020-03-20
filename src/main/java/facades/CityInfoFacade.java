@@ -52,12 +52,15 @@ public class CityInfoFacade {
     public List<PersonDTO> getPersonsByCityInfo(int zipcode) {
         EntityManager em = getEntityManager();
         try {
-            Query q = em.createNativeQuery("select firstName \n"
-                    + "from PERSON  \n"
-                    + "inner join ADDRESS on PERSON.ADDRESS_ID = ADDRESS.ID\n"
-                    + "inner join CITYINFO on ADDRESS.CITYINFO_ID = CITYINFO.ID\n"
-                    + "where CITYINFO.ZIPCODE = '"+zipcode+"';", Person.class);
+            Query q = em.createQuery("select p from Person p where p.address.cityinfo.ZipCode =:zipcode", Person.class)
+                    .setParameter("zipcode", zipcode);
+            
+           
+                    
             List<PersonDTO> persons = q.getResultList();
+            System.out.println("LIST SIZE === " + persons.size());
+            
+          
             return persons;
         } finally {
             em.close();
