@@ -28,7 +28,7 @@ public class CityInfo implements Serializable {
     private Long id;
     private int ZipCode;
     private String city;
-    @OneToMany(mappedBy="cityinfo", cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+    @OneToMany(mappedBy="cityinfo")
     private List<Address> addresses = new ArrayList<>();
 
     public CityInfo(int ZipCode, String city) {

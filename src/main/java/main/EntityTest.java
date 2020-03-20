@@ -6,12 +6,13 @@
 package main;
 
 import entities.Address;
+import entities.CityInfo;
 import entities.Hobby;
 import entities.Person;
 import entities.Phone;
-import facades.AddressFacade;
 import facades.PersonFacade;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import utils.EMF_Creator;
 
@@ -31,18 +32,26 @@ public class EntityTest {
     
         PersonFacade pf = PersonFacade.getFacadeExample(emf);
         
-        AddressFacade af = new AddressFacade();
+        CityInfo askeby = new CityInfo(2450, "Sydhavn");
         
-        Person aske = new Person("aske@punani.dk", "Aske", "Thorsen");
-        Address askeaddress = new Address("Punanigdade", "nede på hjørnet");
-        Phone askephone = new Phone("42131388", "Hjem");
+        
+        Person aske = pf.addPerson("aske@thorsen.dk", "Aske", "Thorsen");
+        Address askeaddress = new Address("Thorsengade", "nede på hjørnet");
+        askeaddress.setCityinfo(askeby);
+        
+        Phone askehjem = new Phone("42131388", "Hjem");
+        Phone askearbejde = new Phone("123585885", "Arbejde");
+        aske.addPhones(askehjem);
+        aske.addPhones(askearbejde);
+        
         Hobby askehobby = new Hobby("Ridning", "Det er sjovt");
         Hobby askehobby2 = new Hobby("Rollespil", "Det er i den mørke skov");
-        pf.addPhone(aske, askephone);
-//        pf.addHobby(aske, askehobby);
-//        pf.addHobby(aske, askehobby2);
         
-        pf.addPerson(aske.getEmail(), aske.getFirstName(), aske.getLastName());
+        
+        
+        pf.addPhone(aske);
+        
+        
         pf.addAddress(aske, askeaddress);
         
     }

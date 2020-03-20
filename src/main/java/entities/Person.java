@@ -35,9 +35,9 @@ public class Person implements Serializable {
     private String email;
     private String firstName;
     private String lastName;
-    @ManyToOne(cascade = { CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Address address;
-    @OneToMany(mappedBy="person", cascade = { CascadeType.MERGE, CascadeType.PERSIST })
+    @OneToMany(mappedBy="person", cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     private List<Phone> phones = new ArrayList<>();
     //@ManyToMany(cascade = CascadeType.PERSIST)
     //private Set<Hobby> hobbies;
@@ -105,6 +105,9 @@ public class Person implements Serializable {
     public void addPhones(Phone phone) {
         this.phones.add(phone);
         phone.setPerson(this);
+    }
+    public void setPhones(List<Phone> phones){
+        this.phones = phones;
     }
 
 //    public Set<Hobby> getHobbies() {

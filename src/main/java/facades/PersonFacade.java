@@ -75,7 +75,7 @@ public class PersonFacade {
         }
     }
     
-    public PersonDTO addPerson(String firstName, String lastName, String email){
+    public Person addPerson(String firstName, String lastName, String email){
         Person person = new Person(email, firstName, lastName);
         
         EntityManager em = emf.createEntityManager();
@@ -84,7 +84,7 @@ public class PersonFacade {
             em.persist(person);
             em.getTransaction().commit();
             PersonDTO pdto = new PersonDTO(person);
-            return pdto;
+            return person;
         }finally{
             em.close();
         }
@@ -104,9 +104,9 @@ public class PersonFacade {
         return person;
     }
     
-    public Person addPhone(Person person, Phone phone){
+    public Person addPhone(Person person){
         EntityManager em = emf.createEntityManager();
-        person.addPhones(phone);
+        //person.setPhones(phones);
         
         try{
             em.getTransaction().begin();
