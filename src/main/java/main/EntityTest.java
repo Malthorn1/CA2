@@ -35,14 +35,15 @@ public class EntityTest {
         
         Person aske = new Person("aske@punani.dk", "Aske", "Thorsen");
         Address askeaddress = new Address("Punanigdade", "nede på hjørnet");
-        Phone askephone = new Phone(42131388, "Hjem");
+        Phone askephone = new Phone("42131388", "Hjem");
         Hobby askehobby = new Hobby("Ridning", "Det er sjovt");
         Hobby askehobby2 = new Hobby("Rollespil", "Det er i den mørke skov");
         pf.addPhone(aske, askephone);
 //        pf.addHobby(aske, askehobby);
 //        pf.addHobby(aske, askehobby2);
+        
+        pf.addPerson(aske.getEmail(), aske.getFirstName(), aske.getLastName());
         pf.addAddress(aske, askeaddress);
-        pf.addPerson(aske.getEmail(),aske.getFirstName(),aske.getLastName());
         
     }
     

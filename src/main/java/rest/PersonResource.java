@@ -46,15 +46,26 @@ public class PersonResource {
         return "{\"count\":"+count+"}";  //Done manually so no need for a DTO
     }
     
-     @Path("add")
-    @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    public String addPerson(String json) {
-    PersonDTO persDTO = GSON.fromJson(json, PersonDTO.class);
-    PersonDTO persistedPersDTO = FACADE.addPerson(persDTO.getEmail(),persDTO.getFirstName(), persDTO.getLastName());
-    return GSON.toJson(persistedPersDTO);
+    
+    
+    @Path("all")
+    @GET
+    @Produces({MediaType.APPLICATION_JSON})
+    public String getAllPersons(){
+        return GSON.toJson(FACADE.getAllPersons());
     }
+    
+    
+    
+//    @Path("add")
+//    @POST
+//    @Produces(MediaType.APPLICATION_JSON)
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    public String addPerson(String json) {
+//    PersonDTO persDTO = GSON.fromJson(json, PersonDTO.class);
+//    PersonDTO persistedPersDTO = FACADE.addPerson(persDTO.getEmail(),persDTO.getFirstName(), persDTO.getLastName());
+//    return GSON.toJson(persistedPersDTO);
+//    }
 
  
 }

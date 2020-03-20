@@ -1,6 +1,8 @@
 package entities;
 
 
+import dto.AddressDTO;
+import dto.PhonesDTO;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,12 +42,15 @@ public class Person implements Serializable {
     //@ManyToMany(cascade = CascadeType.PERSIST)
     //private Set<Hobby> hobbies;
     
+    
+    
 
     public Person(String email, String firstName, String lastName) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
     }
+    
     
     
     

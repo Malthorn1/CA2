@@ -20,21 +20,23 @@ public class PersonDTO {
     private String firstName;
     private String lastName;
     private long id;
-    private Address address;
-    private List<Phone> phones;
+    private AddressDTO addressDTO;
+    private PhonesDTO phoneDTO;
+    
     public PersonDTO(Person person) {
         this.email = person.getEmail();
         this.firstName = person.getFirstName();
         this.lastName = person.getLastName();
         this.id = person.getId();
-        this.address = person.getAddress();
-        this.phones = person.getPhones();
+        
     }
 
-    public PersonDTO(String email, String firstName, String lastName) {
+    public PersonDTO(String email, String firstName, String lastName, AddressDTO addressDTO, PhonesDTO phonesDTO) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.addressDTO = addressDTO;
+        this.phoneDTO = phonesDTO;
     }
     
     
@@ -69,22 +71,25 @@ public class PersonDTO {
         return id;
     }
 
-    public Address getAddress() {
-        return address;
+    public PhonesDTO getPhoneDTO() {
+        return phoneDTO;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setPhoneDTO(PhonesDTO phoneDTO) {
+        this.phoneDTO = phoneDTO;
     }
 
-    public List<Phone> getPhones() {
-        return phones;
+   
+
+    public AddressDTO getAddressDTO() {
+        return addressDTO;
     }
 
-    public void setPhones(List<Phone> phones) {
-        this.phones = phones;
+    public void setAddressDTO(AddressDTO addressDTO) {
+        this.addressDTO = addressDTO;
     }
-    
+
+   
     
     
     

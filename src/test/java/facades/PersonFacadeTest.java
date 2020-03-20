@@ -92,10 +92,10 @@ public class PersonFacadeTest {
     }
     
     
-    @Test
-    public void testGetAllPersons(){
-        assertEquals(2, facade.getAllPersons().size());
-    }
+//    @Test
+//    public void testGetAllPersons(){
+//        assertEquals(2, facade.getAllPersons().size());
+//    }
     
 //    @Test
 //    public void testGetPerson(){

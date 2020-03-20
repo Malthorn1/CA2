@@ -8,12 +8,27 @@ package dto;
 
 import entities.Phone;
 
+
+import entities.Phone;
+
+/**
+ *
+ * @author casper
+ */
+
 public class PhoneDTO {
     
     private String number;
     private String description;
 
+
     public PhoneDTO() {
+    }
+
+
+    public PhoneDTO(Phone phone) {
+        this.number = phone.getNumber();
+        this.description = phone.getDescription();
     }
 
     public PhoneDTO(String number, String description) {
@@ -21,10 +36,6 @@ public class PhoneDTO {
         this.description = description;
     }
     
-    public PhoneDTO(Phone phone) {
-//        this.number = phone.getNumber();
-        this.description = phone.getDescription();
-    }
 
     public String getNumber() {
         return number;
@@ -42,4 +53,5 @@ public class PhoneDTO {
         this.description = description;
     }
     
+
 }

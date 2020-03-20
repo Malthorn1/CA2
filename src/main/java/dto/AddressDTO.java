@@ -4,28 +4,36 @@
  * and open the template in the editor.
  */
 package dto;
-
-
 import entities.Address;
-import entities.CityInfo;
 
+
+
+/**
+ *
+ * @author casper
+ */
 public class AddressDTO {
     
     private String street;
-    private CityInfo cityInfo;
+    private String additionalInfo;
+    private CityInfoDTO cityInfoDTO;
     
-    public AddressDTO() {
-    }
-    
-    public AddressDTO(String street, CityInfo cityInfo) {
+
+    public AddressDTO(String street, String additionalInfo) {
         this.street = street;
-        this.cityInfo = cityInfo;
+        this.additionalInfo = additionalInfo;
     }
     
-    public AddressDTO(Address address) {
-        this.street = address.getStreet();
-     //   this.cityInfo = address.getCityInfo();
-    }
+//    public AddressDTO(String street, String additionalInfo){
+//        
+//        this.street = street;
+//        this.additionalInfo = additionalInfo
+//        
+//        
+//    }
+    
+    
+    public AddressDTO(){}
 
     public String getStreet() {
         return street;
@@ -35,11 +43,15 @@ public class AddressDTO {
         this.street = street;
     }
 
-    public CityInfo getCityInfo() {
-        return cityInfo;
+    public String getAdditionalInfo() {
+        return additionalInfo;
     }
 
-    public void setCityInfo(CityInfo cityInfo) {
-        this.cityInfo = cityInfo;
+    public void setAdditionalInfo(String additionalInfo) {
+        this.additionalInfo = additionalInfo;
     }
+    
+    
+    
+    
 }

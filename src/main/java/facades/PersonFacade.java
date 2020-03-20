@@ -1,6 +1,7 @@
 package facades;
 
 import dto.PersonDTO;
+import dto.PersonsDTO;
 import entities.Address;
 import entities.Hobby;
 import entities.Person;
@@ -54,17 +55,11 @@ public class PersonFacade {
         
     }
     
-    public List<PersonDTO> getAllPersons(){
-        EntityManager em = emf.createEntityManager();
+    public PersonsDTO getAllPersons(){
+        EntityManager em = getEntityManager();
         try{
-            TypedQuery<Person> q = em.createQuery("SELECT p from Person p", Person.class);
-            List<Person> persons = q.getResultList();
-            List<PersonDTO> pDTO = new ArrayList<>();
-            for (Person person : persons) {
-                PersonDTO pdto = new PersonDTO(person);
-                pDTO.add(pdto);
-            }
-            return pDTO;
+            TypedQuery<Person> query = em.createQuery("SELECT p from Person p", Person.class);
+            return new PersonsDTO(query.getResultList());
         }finally{
             em.close();
         }
@@ -80,14 +75,15 @@ public class PersonFacade {
         }
     }
     
-    public PersonDTO addPerson(String email, String firstName, String lastName){
+    public PersonDTO addPerson(String firstName, String lastName, String email){
         Person person = new Person(email, firstName, lastName);
+        
         EntityManager em = emf.createEntityManager();
         try{
             em.getTransaction().begin();
             em.persist(person);
             em.getTransaction().commit();
-            PersonDTO pdto = new PersonDTO(person.getEmail(),person.getFirstName(),person.getLastName());
+            PersonDTO pdto = new PersonDTO(person);
             return pdto;
         }finally{
             em.close();
