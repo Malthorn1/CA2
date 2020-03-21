@@ -61,17 +61,20 @@ public class AddressFacade {
         }
     }
     
-    public PersonDTO editAddress(AddressDTO addressDTO){
+    public AddressDTO editAddress(AddressDTO addressDTO){
         EntityManager em = getEntityManager();
         
         try{
             em.getTransaction().begin();
-            Person p = em.find(Person.class, addressDTO.getpDTOID());
-            Address pAddress = new Address(addressDTO.getStreet(), addressDTO.getAdditionalInfo());
-            p.setAddress(pAddress);
+            Person p = em.find(Person.class, (long)addressDTO.getpDTOID());
+            
+            
+            
+            p.getAddress().setAdditionalInfo(addressDTO.getAdditionalInfo());
+            p.getAddress().setStreet(addressDTO.getStreet());
             
             em.getTransaction().commit();
-            return new PersonDTO(p);
+            return new AddressDTO(addressDTO.getStreet(), addressDTO.getAdditionalInfo());
         }finally{
             em.close();
         }

@@ -3,9 +3,11 @@ package facades;
 import dto.AddressDTO;
 import dto.CityInfoDTO;
 import dto.PersonDTO;
+import dto.PhoneDTO;
 import dto.PhonesDTO;
 import entities.Person;
 import entities.Phone;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -69,6 +71,26 @@ public class PhoneFacade {
                             new CityInfoDTO(p.getAddress().getCityinfo().getZipCode(), p.getAddress().getCityinfo().getCity())),
                     new PhonesDTO(p.getPhones()));
         } finally {
+            em.close();
+        }
+    }
+
+    public PhonesDTO editPhones(PhonesDTO pDTO) {
+        EntityManager em = getEntityManager();
+        try{
+            em.getTransaction().begin();
+            Person p = em.find(Person.class, (long)pDTO.getpDTOID());
+            List<PhoneDTO> pDTOs = pDTO.getAll();
+            List<Phone> phones = new ArrayList<>();
+            for (PhoneDTO phoneDTO : pDTOs) {
+                phones.add(new Phone(phoneDTO.getNumber(), phoneDTO.getDescription()));
+                
+            }
+            
+            p.setPhones(phones);
+            em.getTransaction().commit();
+            return new PhonesDTO(phones);
+        }finally{
             em.close();
         }
     }

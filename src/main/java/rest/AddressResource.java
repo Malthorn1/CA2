@@ -57,13 +57,13 @@ public class AddressResource {
     
     
     @PUT
-    @Path("edit/{id}")
+    @Path("/edit/{value}")
     @Produces({MediaType.APPLICATION_JSON}) 
     @Consumes({MediaType.APPLICATION_JSON}) 
     public Response editAddress(@PathParam("value") int value, String addressDTO){
         AddressDTO aDTO = GSON.fromJson(addressDTO, AddressDTO.class);
-        aDTO.setpDTOID((long)value);
-        PersonDTO responseDTO = FACADE.editAddress(aDTO);
+        aDTO.setpDTOID((value));
+        AddressDTO responseDTO = FACADE.editAddress(aDTO);
         return Response.ok(responseDTO).build();
     }
     
