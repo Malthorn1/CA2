@@ -23,22 +23,30 @@ public class PersonDTO {
     private AddressDTO addressDTO;
     private PhonesDTO phoneDTO;
     
-    public PersonDTO(Person person) {
+    public PersonDTO(Person person, AddressDTO addressDTO, PhonesDTO phoneDTO) {
         this.email = person.getEmail();
         this.firstName = person.getFirstName();
-        
-        
+        this.addressDTO = addressDTO;
         this.lastName = person.getLastName();
+        this.phoneDTO = phoneDTO;
         this.id = person.getId();
         
     }
+    
+    public PersonDTO(Person person){
+        this.email = person.getEmail();
+        this.firstName = person.getFirstName();
+        this.lastName = person.getLastName();
+    }
 
-    public PersonDTO(String email, String firstName, String lastName, AddressDTO addressDTO, PhonesDTO phonesDTO) {
+    public PersonDTO(Long id, String email, String firstName, String lastName, AddressDTO addressDTO, PhonesDTO phonesDTO) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;
         this.addressDTO = addressDTO;
         this.phoneDTO = phonesDTO;
+        this.id = id;
+        
     }
 
     public PersonDTO(String email, String firstName, String lastName) {
@@ -50,6 +58,8 @@ public class PersonDTO {
     
     
     public PersonDTO(){}
+
+   
 
     public String getEmail() {
         return email;

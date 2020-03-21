@@ -4,6 +4,7 @@ import dto.AddressDTO;
 import dto.CityInfoDTO;
 import dto.PersonDTO;
 import dto.PersonsDTO;
+import dto.PhoneDTO;
 import dto.PhonesDTO;
 import entities.Address;
 import entities.Hobby;
@@ -72,7 +73,9 @@ public class PersonFacade {
         EntityManager em = emf.createEntityManager();
         try{
             Person p = em.find(Person.class, (long)id);
-            return new PersonDTO(p.getEmail(),
+            return new PersonDTO(
+                    p.getId(),
+                    p.getEmail(),
                     p.getFirstName(),
                     p.getLastName(),
                     new AddressDTO(p.getAddress().getStreet(), p.getAddress().getAdditionalInfo(),
@@ -124,6 +127,26 @@ public class PersonFacade {
             em.close();
         }
         return person;
+    }
+    
+    public PersonDTO editPerson(PersonDTO p){
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+
+            Person person = em.find(Person.class, (long)p.getId());
+            
+            person.setFirstName(p.getFirstName());
+            person.setLastName(p.getLastName());
+            person.setEmail(p.getEmail());
+            
+            
+            em.getTransaction().commit();
+
+            return new PersonDTO(person);
+        } finally {
+            em.close();
+        }
     }
     
 //    public Person addHobby(Person person, Hobby hobby){
