@@ -35,8 +35,8 @@ public class EntityTest {
         CityInfo askeby = new CityInfo(2450, "Sydhavn");
         CityInfo Jensby = new CityInfo(2800, "Lyngby");        
         
-        Person aske = pf.addPerson("aske@thorsen.dk", "Aske", "Thorsen");
-        Person jens = pf.addPerson("jens@derp.dk", "Jens", "ohhlends"); 
+        Person aske = pf.addPerson("Aske", "Thorsen", "aske@thorsen.dk");
+        Person jens = pf.addPerson("Jens", "ohhlends", "jens@derp.dk"); 
         Address askeaddress = new Address("Thorsengade", "nede på hjørnet");
         Address Jensaddress = new Address("Nybrovej", "Stuen A");
         askeaddress.setCityinfo(askeby);
