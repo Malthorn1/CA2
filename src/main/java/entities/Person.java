@@ -108,6 +108,9 @@ public class Person implements Serializable {
     }
     public void setPhones(List<Phone> phones){
         this.phones = phones;
+        for (Phone phone : phones) {
+            phone.setPerson(this);
+        }
     }
 
 //    public Set<Hobby> getHobbies() {

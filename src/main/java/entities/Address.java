@@ -32,7 +32,7 @@ public class Address implements Serializable {
     private String additionalInfo;
     @OneToMany(mappedBy="address", cascade = CascadeType.DETACH)
     private List<Person> person = new ArrayList<>();
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private CityInfo cityinfo;
     
 

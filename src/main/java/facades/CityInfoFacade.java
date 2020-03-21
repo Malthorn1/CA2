@@ -1,6 +1,9 @@
 package facades;
 
+import dto.AddressDTO;
+import dto.CityInfoDTO;
 import dto.PersonDTO;
+import entities.CityInfo;
 import entities.Person;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,6 +69,27 @@ public class CityInfoFacade {
         } finally {
             em.close();
         }
+    }
+    
+    public CityInfoDTO editCityInfo(CityInfoDTO cityInfoDTO, int id){
+        EntityManager em = getEntityManager();
+        
+        try{
+            em.getTransaction().begin();
+            Person p = em.find(Person.class, (long)id);
+            
+            CityInfo cityInfo  = new CityInfo(cityInfoDTO.getZipCode(), cityInfoDTO.getCity());
+            
+            p.getAddress().setCityinfo(cityInfo);
+            
+            
+            em.getTransaction().commit();
+            return new CityInfoDTO(p.getAddress().getCityinfo().getZipCode(), p.getAddress().getCityinfo().getCity());
+        }finally{
+            em.close();
+        }
+        
+        
     }
 
 }

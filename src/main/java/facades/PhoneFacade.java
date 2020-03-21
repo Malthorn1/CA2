@@ -75,22 +75,24 @@ public class PhoneFacade {
         }
     }
 
-    public PhonesDTO editPhones(PhonesDTO pDTO) {
+    public PhonesDTO editPhones(List<PhoneDTO> pDTOs, int id) {
         EntityManager em = getEntityManager();
-        try{
+        try {
             em.getTransaction().begin();
-            Person p = em.find(Person.class, (long)pDTO.getpDTOID());
-            List<PhoneDTO> pDTOs = pDTO.getAll();
-            List<Phone> phones = new ArrayList<>();
-            for (PhoneDTO phoneDTO : pDTOs) {
-                phones.add(new Phone(phoneDTO.getNumber(), phoneDTO.getDescription()));
-                
+            Person p = em.find(Person.class, (long) id);
+            List<Phone> phones = p.getPhones();
+            
+            for (int i = 0; i < phones.size(); i++) {
+                p.getPhones().get(i).setNumber(pDTOs.get(i).getNumber());
+                p.getPhones().get(i).setDescription(pDTOs.get(i).getDescription());
             }
             
-            p.setPhones(phones);
+            
             em.getTransaction().commit();
+
             return new PhonesDTO(phones);
-        }finally{
+
+        } finally {
             em.close();
         }
     }

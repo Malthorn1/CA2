@@ -2,10 +2,11 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import dto.AddressDTO;
+import dto.PhoneDTO;
 import dto.PhonesDTO;
 import utils.EMF_Creator;
 import facades.PhoneFacade;
+import java.util.List;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -62,8 +63,9 @@ public class PhoneResource {
     @Consumes({MediaType.APPLICATION_JSON}) 
     public Response editPhone(@PathParam("value") int value, String phonesDTO){
         PhonesDTO pDTO = GSON.fromJson(phonesDTO, PhonesDTO.class);
-        pDTO.setpDTOID((value));
-        PhonesDTO responseDTO = FACADE.editPhones(pDTO);
+        List<PhoneDTO> phones = pDTO.getAll();
+        
+        PhonesDTO responseDTO = FACADE.editPhones(phones, value);
         return Response.ok(responseDTO).build();
     }
     
