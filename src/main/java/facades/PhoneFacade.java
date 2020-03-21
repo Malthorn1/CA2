@@ -61,6 +61,7 @@ public class PhoneFacade {
             Person p = em.find(Person.class, (long) query.get(0).getId());
 
             return new PersonDTO(
+                    p.getId(),
                     p.getEmail(),
                     p.getFirstName(),
                     p.getLastName(),
