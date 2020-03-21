@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dto.AddressDTO;
 import dto.CityInfoDTO;
+import exceptions.CityInfoNotFoundException;
 import facades.CityInfoFacade;
 import utils.EMF_Creator;
 import javax.persistence.EntityManagerFactory;
@@ -51,7 +52,7 @@ public class CityInfoResource {
     @GET
     @Path("/zipcode/{zipcode}")
     @Produces({MediaType.APPLICATION_JSON}) 
-    public String getPersonByZipcode(@PathParam("zipcode") int zipcode) {
+    public String getPersonByZipcode(@PathParam("zipcode") int zipcode) throws CityInfoNotFoundException {
         return GSON.toJson(FACADE.getPersonsByCityInfo(zipcode)); 
     }
     
@@ -59,7 +60,7 @@ public class CityInfoResource {
     @Path("/edit/{value}")
     @Produces({MediaType.APPLICATION_JSON}) 
     @Consumes({MediaType.APPLICATION_JSON}) 
-    public Response editCityInfo(@PathParam("value") int value, String cityInfoDTO){
+    public Response editCityInfo(@PathParam("value") int value, String cityInfoDTO) throws CityInfoNotFoundException{
         CityInfoDTO cDTO = GSON.fromJson(cityInfoDTO, CityInfoDTO.class);
         
         CityInfoDTO responseDTO = FACADE.editCityInfo(cDTO, value);

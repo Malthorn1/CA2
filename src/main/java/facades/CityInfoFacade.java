@@ -5,6 +5,7 @@ import dto.CityInfoDTO;
 import dto.PersonDTO;
 import entities.CityInfo;
 import entities.Person;
+import exceptions.CityInfoNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -53,13 +54,18 @@ public class CityInfoFacade {
 
     }
 
-    public List<PersonDTO> getPersonsByCityInfo(int zipcode) {
+    public List<PersonDTO> getPersonsByCityInfo(int zipcode) throws CityInfoNotFoundException{
         EntityManager em = getEntityManager();
         try {
             Query q = em.createQuery("select p from Person p where p.address.cityinfo.ZipCode =:zipcode", Person.class)
                     .setParameter("zipcode", zipcode);
+            
 
             List<Person> persons = q.getResultList();
+            if(persons.isEmpty()){
+                throw new CityInfoNotFoundException("No person found  with provided ZipCode");
+                
+            }
             List<PersonDTO> pDTOs = new ArrayList<>();
             for (Person person : persons) {
                 pDTOs.add(new PersonDTO(person));
@@ -71,12 +77,15 @@ public class CityInfoFacade {
         }
     }
     
-    public CityInfoDTO editCityInfo(CityInfoDTO cityInfoDTO, int id){
+    public CityInfoDTO editCityInfo(CityInfoDTO cityInfoDTO, int id) throws CityInfoNotFoundException{
         EntityManager em = getEntityManager();
         
         try{
             em.getTransaction().begin();
             Person p = em.find(Person.class, (long)id);
+            if(p == null){
+                throw new CityInfoNotFoundException("Could not find any person to edit CityInfo on with specified ID");
+            }
             
             CityInfo cityInfo  = new CityInfo(cityInfoDTO.getZipCode(), cityInfoDTO.getCity());
             

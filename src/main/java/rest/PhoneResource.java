@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dto.PhoneDTO;
 import dto.PhonesDTO;
+import exceptions.PhoneNotFoundException;
 import utils.EMF_Creator;
 import facades.PhoneFacade;
 import java.util.List;
@@ -52,7 +53,7 @@ public class PhoneResource {
     @GET
     @Path("{number}")
     @Produces({MediaType.APPLICATION_JSON}) 
-    public String getPersonByPhoneNumber(@PathParam("number") String number) {
+    public String getPersonByPhoneNumber(@PathParam("number") String number) throws PhoneNotFoundException {
         return GSON.toJson(FACADE.getPersonByPhoneNumber(number)); 
     }
     
@@ -61,7 +62,7 @@ public class PhoneResource {
     @Path("/edit/{value}")
     @Produces({MediaType.APPLICATION_JSON}) 
     @Consumes({MediaType.APPLICATION_JSON}) 
-    public Response editPhone(@PathParam("value") int value, String phonesDTO){
+    public Response editPhone(@PathParam("value") int value, String phonesDTO) throws PhoneNotFoundException{
         PhonesDTO pDTO = GSON.fromJson(phonesDTO, PhonesDTO.class);
         List<PhoneDTO> phones = pDTO.getAll();
         

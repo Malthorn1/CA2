@@ -4,6 +4,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dto.AddressDTO;
 import dto.PersonDTO;
+import exceptions.AddressNotFoundException;
+import exceptions.PersonNotFoundException;
 import facades.AddressFacade;
 import utils.EMF_Creator;
 import javax.persistence.EntityManagerFactory;
@@ -60,7 +62,7 @@ public class AddressResource {
     @Path("/edit/{value}")
     @Produces({MediaType.APPLICATION_JSON}) 
     @Consumes({MediaType.APPLICATION_JSON}) 
-    public Response editAddress(@PathParam("value") int value, String addressDTO){
+    public Response editAddress(@PathParam("value") int value, String addressDTO) throws AddressNotFoundException{
         AddressDTO aDTO = GSON.fromJson(addressDTO, AddressDTO.class);
         aDTO.setpDTOID((value));
         AddressDTO responseDTO = FACADE.editAddress(aDTO);

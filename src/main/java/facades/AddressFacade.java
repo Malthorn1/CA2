@@ -4,8 +4,11 @@ import dto.AddressDTO;
 import dto.PersonDTO;
 import entities.Address;
 import entities.Person;
+import exceptions.AddressNotFoundException;
+import exceptions.PersonNotFoundException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import sun.jvm.hotspot.debugger.AddressException;
 
 /**
  *
@@ -61,12 +64,15 @@ public class AddressFacade {
         }
     }
     
-    public AddressDTO editAddress(AddressDTO addressDTO){
+    public AddressDTO editAddress(AddressDTO addressDTO) throws AddressNotFoundException{
         EntityManager em = getEntityManager();
         
         try{
             em.getTransaction().begin();
             Person p = em.find(Person.class, (long)addressDTO.getpDTOID());
+            if(p == null){
+                throw new AddressNotFoundException("No person with provided ID");
+            }
             
             
             

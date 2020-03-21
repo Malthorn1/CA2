@@ -7,6 +7,7 @@ import dto.PhoneDTO;
 import dto.PhonesDTO;
 import entities.Person;
 import entities.Phone;
+import exceptions.PhoneNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -54,13 +55,17 @@ public class PhoneFacade {
 
     }
 
-    public PersonDTO getPersonByPhoneNumber(String number) {
+    public PersonDTO getPersonByPhoneNumber(String number) throws PhoneNotFoundException{
         EntityManager em = emf.createEntityManager();
         try {
             List<Phone> query = em.createQuery("SELECT c FROM Phone c where c.number like :number", Phone.class)
                     .setParameter("number", number)
                     .getResultList();
+            if(query.isEmpty()){
+                throw new PhoneNotFoundException("No entries found on that phone number");
+            }
             Person p = em.find(Person.class, (long) query.get(0).getId());
+            
 
             return new PersonDTO(
                     p.getId(),
@@ -75,11 +80,14 @@ public class PhoneFacade {
         }
     }
 
-    public PhonesDTO editPhones(List<PhoneDTO> pDTOs, int id) {
+    public PhonesDTO editPhones(List<PhoneDTO> pDTOs, int id) throws PhoneNotFoundException {
         EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
             Person p = em.find(Person.class, (long) id);
+            if(p == null){
+                throw new PhoneNotFoundException("No person with provided ID");
+            }
             List<Phone> phones = p.getPhones();
             
             for (int i = 0; i < phones.size(); i++) {
