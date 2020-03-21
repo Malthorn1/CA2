@@ -11,6 +11,7 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -56,11 +57,12 @@ public class AddressResource {
     
     
     @PUT
-    @Path("edit")
+    @Path("edit/{id}")
     @Produces({MediaType.APPLICATION_JSON}) 
     @Consumes({MediaType.APPLICATION_JSON}) 
-    public Response editAddress(String addressDTO){
+    public Response editAddress(@PathParam("value") int value, String addressDTO){
         AddressDTO aDTO = GSON.fromJson(addressDTO, AddressDTO.class);
+        aDTO.setpDTOID((long)value);
         PersonDTO responseDTO = FACADE.editAddress(aDTO);
         return Response.ok(responseDTO).build();
     }
