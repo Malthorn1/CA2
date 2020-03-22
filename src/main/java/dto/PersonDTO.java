@@ -49,6 +49,7 @@ public class PersonDTO {
         
     }
 
+
     public PersonDTO(String email, String firstName, String lastName) {
         this.email = email;
         this.firstName = firstName;
@@ -61,6 +62,16 @@ public class PersonDTO {
         this.firstName = firstName;
         this.lastName = lastName;
     }
+
+    public PersonDTO(String email, String firstName, String lastName, long id) {
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.id = id;
+    }
+    
+    
+
     
     
     

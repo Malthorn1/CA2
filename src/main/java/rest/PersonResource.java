@@ -80,7 +80,7 @@ public class PersonResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public String addPerson(String json) {
     Person persDTO = GSON.fromJson(json, Person.class);
-    Person persistedPers = FACADE.addPerson(persDTO.getEmail(),persDTO.getFirstName(), persDTO.getLastName());
+    PersonDTO persistedPers = FACADE.addPerson(persDTO.getEmail(),persDTO.getFirstName(), persDTO.getLastName());
     return GSON.toJson(persistedPers);
     }
 
@@ -102,5 +102,17 @@ public class PersonResource {
 
     }
 
+
+
+//    @Path("add")
+//    @POST
+//    @Produces(MediaType.APPLICATION_JSON)
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    public String addPerson(String json) {
+//    PersonDTO persDTO = GSON.fromJson(json, PersonDTO.class);
+//    PersonDTO persistedPers= FACADE.addPerson(persDTO.getEmail(),persDTO.getFirstName(), persDTO.getLastName());
+//   // PersonDTO pdto = new PersonDTO(persistedPers); 
+//    return GSON.toJson(persistedPers);
+//    }
 
 }
