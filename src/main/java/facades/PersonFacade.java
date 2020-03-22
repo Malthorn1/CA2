@@ -90,7 +90,7 @@ public class PersonFacade {
         }
     }
     
-    public Person addPerson(String firstName, String lastName, String email){
+    public Person addPerson(String email, String firstName, String lastName){
         Person person = new Person(email, firstName, lastName);
         
         EntityManager em = emf.createEntityManager();

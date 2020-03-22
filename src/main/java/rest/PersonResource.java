@@ -90,13 +90,14 @@ public class PersonResource {
 
     }
 
-//    @Path("add")
-//    @POST
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    public String addPerson(String json) {
-//    PersonDTO persDTO = GSON.fromJson(json, PersonDTO.class);
-//    PersonDTO persistedPersDTO = FACADE.addPerson(persDTO.getEmail(),persDTO.getFirstName(), persDTO.getLastName());
-//    return GSON.toJson(persistedPersDTO);
-//    }
+    @Path("add")
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String addPerson(String json) {
+    PersonDTO persDTO = GSON.fromJson(json, PersonDTO.class);
+    Person persistedPers= FACADE.addPerson(persDTO.getEmail(),persDTO.getFirstName(), persDTO.getLastName());
+    PersonDTO pdto = new PersonDTO(persistedPers); 
+    return GSON.toJson(pdto);
+    }
 }
