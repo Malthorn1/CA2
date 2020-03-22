@@ -48,6 +48,15 @@ public class PersonDTO {
         this.id = id;
         
     }
+
+    public PersonDTO(String email, String firstName, String lastName, long id) {
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.id = id;
+    }
+    
+    
     
     
     

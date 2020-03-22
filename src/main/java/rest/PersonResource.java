@@ -96,8 +96,8 @@ public class PersonResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public String addPerson(String json) {
     PersonDTO persDTO = GSON.fromJson(json, PersonDTO.class);
-    Person persistedPers= FACADE.addPerson(persDTO.getEmail(),persDTO.getFirstName(), persDTO.getLastName());
-    PersonDTO pdto = new PersonDTO(persistedPers); 
-    return GSON.toJson(pdto);
+    PersonDTO persistedPers= FACADE.addPerson(persDTO.getEmail(),persDTO.getFirstName(), persDTO.getLastName());
+   // PersonDTO pdto = new PersonDTO(persistedPers); 
+    return GSON.toJson(persistedPers);
     }
 }

@@ -90,16 +90,16 @@ public class PersonFacade {
         }
     }
     
-    public Person addPerson(String email, String firstName, String lastName){
-        Person person = new Person(email, firstName, lastName);
+    public PersonDTO addPerson(String email, String firstName, String lastName){
+        Person p = new Person(email, firstName, lastName);
         
         EntityManager em = emf.createEntityManager();
         try{
             em.getTransaction().begin();
-            em.persist(person);
+            em.persist(p);
             em.getTransaction().commit();
-            PersonDTO pdto = new PersonDTO(person);
-            return person;
+            PersonDTO pdto = new PersonDTO(p.getEmail(), p.getFirstName(), p.getLastName(), p.getId());
+            return pdto;
         }finally{
             em.close();
         }
