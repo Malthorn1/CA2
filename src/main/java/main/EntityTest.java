@@ -58,7 +58,7 @@ public class EntityTest {
         Hobby jenshobby = new Hobby("ComputerSpil", "fun");
         Hobby jenshobby2 = new Hobby("DDDD", "kkkk");
         
-        
+
         
         
         
