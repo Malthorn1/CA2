@@ -70,6 +70,18 @@ public class PhoneResource {
         return GSON.toJson(phoneDTO);
     }
     
+    @POST
+    @Path("add/{id}")
+    @Produces({MediaType.APPLICATION_JSON}) 
+    @Consumes({MediaType.APPLICATION_JSON}) 
+    public String addPhone(@PathParam("id") int id,String phone){
+        PhoneDTO pDTO = GSON.fromJson(phone, PhoneDTO.class);
+        pDTO.setpDTOID(id);
+        PhoneDTO phoneDTO = FACADE.addPhone(pDTO.getNumber(), pDTO.getDescription(), pDTO.getpDTOID());
+        return GSON.toJson(phoneDTO);
+    }
+    
+    
     @PUT
     @Path("/edit/{value}")
     @Produces({MediaType.APPLICATION_JSON}) 

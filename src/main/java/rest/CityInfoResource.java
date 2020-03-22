@@ -69,6 +69,18 @@ public class CityInfoResource {
         
     }
     
+    @POST
+    @Path("add/{id}")
+    @Produces({MediaType.APPLICATION_JSON}) 
+    @Consumes({MediaType.APPLICATION_JSON}) 
+    public String addCityInfoWithId(@PathParam("id") int id,String cityInfo){
+        CityInfoDTO cDTO = GSON.fromJson(cityInfo, CityInfoDTO.class);
+        cDTO.setcDTOID(id);
+        CityInfoDTO cityDTO = FACADE.AddCityInfo(cDTO.getZipCode(), cDTO.getCity(), cDTO.getcDTOID());
+        return GSON.toJson(cityDTO);
+    }
+    
+    
     @PUT
     @Path("/edit/{value}")
     @Produces({MediaType.APPLICATION_JSON}) 

@@ -69,6 +69,16 @@ public class AddressResource {
         return GSON.toJson(perAddress);
     }
     
+    @POST
+    @Path("add/{id}")
+    @Produces({MediaType.APPLICATION_JSON}) 
+    @Consumes({MediaType.APPLICATION_JSON}) 
+    public String addAddressToId(@PathParam("id") int id, String address){
+        AddressDTO aDTO = GSON.fromJson(address, AddressDTO.class);
+        aDTO.setpDTOID(id);
+        AddressDTO perAddress = FACADE.addAddress(aDTO.getStreet(), aDTO.getAdditionalInfo(), aDTO.getpDTOID());
+        return GSON.toJson(perAddress);
+    }
     
     
     @PUT
