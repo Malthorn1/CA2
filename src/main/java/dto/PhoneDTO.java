@@ -15,7 +15,7 @@ public class PhoneDTO {
     
     private String number;
     private String description;
-    private long pDTOID;
+    private int pDTOID;
     
     public PhoneDTO(Phone phone) {
         this.number = phone.getNumber();
@@ -27,7 +27,7 @@ public class PhoneDTO {
         this.description = description;
     }
     
-        public PhoneDTO(String number, String description, long pDTOID) {
+        public PhoneDTO(String number, String description, int pDTOID) {
         this.number = number;
         this.description = description;
         this.pDTOID = pDTOID;
@@ -39,11 +39,11 @@ public class PhoneDTO {
         return number;
     }
 
-    public long getpDTOID() {
+    public int getpDTOID() {
         return pDTOID;
     }
 
-    public void setpDTOID(long pDTOID) {
+    public void setpDTOID(int pDTOID) {
         this.pDTOID = pDTOID;
     }
 

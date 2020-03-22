@@ -7,6 +7,8 @@ import dto.PhoneDTO;
 import dto.PhonesDTO;
 import entities.Person;
 import entities.Phone;
+import exceptions.PhoneNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -53,13 +55,17 @@ public class PhoneFacade {
 
     }
 
-    public PersonDTO getPersonByPhoneNumber(String number) {
+    public PersonDTO getPersonByPhoneNumber(String number) throws PhoneNotFoundException{
         EntityManager em = emf.createEntityManager();
         try {
             List<Phone> query = em.createQuery("SELECT c FROM Phone c where c.number like :number", Phone.class)
                     .setParameter("number", number)
                     .getResultList();
+            if(query.isEmpty()){
+                throw new PhoneNotFoundException("No entries found on that phone number");
+            }
             Person p = em.find(Person.class, (long) query.get(0).getId());
+            
 
             return new PersonDTO(
                     p.getId(),
@@ -74,20 +80,45 @@ public class PhoneFacade {
         }
     }
     
-        public PersonDTO addPhone(String number, String description, long ID){
+        public PhoneDTO addPhone(String number, String description, int ID){
         
         EntityManager em = emf.createEntityManager();
         try{
             em.getTransaction().begin();
-            Person p = em.find(Person.class, ID);
+            Person p = em.find(Person.class, (long)ID);
             Phone personPhone = new Phone(number, description);
             
             p.addPhones(personPhone);
             
             em.persist(personPhone);
             em.getTransaction().commit();
-            return new PersonDTO(p);
+            return new PhoneDTO(number,description,ID);
         }finally{
+            em.close();
+        }
+    }
+
+    public PhonesDTO editPhones(List<PhoneDTO> pDTOs, int id) throws PhoneNotFoundException {
+        EntityManager em = getEntityManager();
+        try {
+            em.getTransaction().begin();
+            Person p = em.find(Person.class, (long) id);
+            if(p == null){
+                throw new PhoneNotFoundException("No person with provided ID");
+            }
+            List<Phone> phones = p.getPhones();
+            
+            for (int i = 0; i < phones.size(); i++) {
+                p.getPhones().get(i).setNumber(pDTOs.get(i).getNumber());
+                p.getPhones().get(i).setDescription(pDTOs.get(i).getDescription());
+            }
+            
+            
+            em.getTransaction().commit();
+
+            return new PhonesDTO(phones);
+
+        } finally {
             em.close();
         }
     }

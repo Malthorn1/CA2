@@ -9,6 +9,7 @@ import dto.PersonDTO;
 import dto.PhoneDTO;
 import dto.PhonesDTO;
 import entities.Person;
+import exceptions.PersonNotFoundException;
 import utils.EMF_Creator;
 import facades.PersonFacade;
 import java.io.IOException;
@@ -69,7 +70,7 @@ public class PersonResource {
     @Path("id/{value}")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public String getPersonByID(@PathParam("value") int value) {
+    public String getPersonByID(@PathParam("value") int value) throws PersonNotFoundException{
         return GSON.toJson(FACADE.getPerson(value));
     }
     
@@ -89,7 +90,7 @@ public class PersonResource {
     @PUT
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
-    public Response editPerson(String person) throws IOException {
+    public Response editPerson(String person) throws IOException, PersonNotFoundException {
         PersonDTO personDTO = GSON.fromJson(person, PersonDTO.class);
         //AddressDTO aDTO = GSON.fromJson(addressDTO, AddressDTO.class);
         //PhonesDTO pDTO = GSON.fromJson(phoneDTO, PhonesDTO.class);

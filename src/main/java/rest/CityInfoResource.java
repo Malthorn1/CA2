@@ -3,19 +3,23 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dto.CityInfoDTO;
+import dto.PersonDTO;
+import exceptions.CityInfoNotFoundException;
 import facades.CityInfoFacade;
 import utils.EMF_Creator;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 //Todo Remove or change relevant parts before ACTUAL use
-@Path("zipcode")
+@Path("cityinfo")
 public class CityInfoResource {
 
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory(
@@ -47,9 +51,9 @@ public class CityInfoResource {
     
     
     @GET
-    @Path("{zipcode}")
+    @Path("/zipcode/{zipcode}")
     @Produces({MediaType.APPLICATION_JSON}) 
-    public String getPersonByZipcode(@PathParam("zipcode") int zipcode) {
+    public String getPersonByZipcode(@PathParam("zipcode") int zipcode) throws CityInfoNotFoundException {
         return GSON.toJson(FACADE.getPersonsByCityInfo(zipcode)); 
     }
     
@@ -57,12 +61,24 @@ public class CityInfoResource {
     @Path("add")
     @Produces({MediaType.APPLICATION_JSON}) 
     @Consumes({MediaType.APPLICATION_JSON}) 
-    public String addPhone(String cityInfo){
+    public String addCityInfo(String cityInfo){
         CityInfoDTO cDTO = GSON.fromJson(cityInfo, CityInfoDTO.class);
-        CityInfoDTO cityDTO = FACADE.addCity(cDTO.getZipCode(), cDTO.getCity(), cDTO.getcDTOID());
+        System.out.println(cDTO.getCity() + "City her");
+        CityInfoDTO cityDTO = FACADE.AddCityInfo(cDTO.getZipCode(), cDTO.getCity(), cDTO.getcDTOID());
         return GSON.toJson(cityDTO);
+        
     }
     
+    @PUT
+    @Path("/edit/{value}")
+    @Produces({MediaType.APPLICATION_JSON}) 
+    @Consumes({MediaType.APPLICATION_JSON}) 
+    public Response editCityInfo(@PathParam("value") int value, String cityInfoDTO) throws CityInfoNotFoundException{
+        CityInfoDTO cDTO = GSON.fromJson(cityInfoDTO, CityInfoDTO.class);
+        
+        CityInfoDTO responseDTO = FACADE.editCityInfo(cDTO, value);
+        return Response.ok(responseDTO).build();
+    }
  
  
 }

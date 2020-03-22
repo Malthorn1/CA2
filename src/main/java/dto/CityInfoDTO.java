@@ -15,10 +15,26 @@ public class CityInfoDTO {
     
     private int ZipCode;
     private String city;
+    private int cDTOID;
+    
 
     public CityInfoDTO(int ZipCode, String city) {
         this.ZipCode = ZipCode;
         this.city = city;
+    }
+
+    public CityInfoDTO(int ZipCode, String city, int cDTOID) {
+        this.ZipCode = ZipCode;
+        this.city = city;
+        this.cDTOID = cDTOID;
+    }
+
+    public int getcDTOID() {
+        return cDTOID;
+    }
+
+    public void setcDTOID(int cDTOID) {
+        this.cDTOID = cDTOID;
     }
     
     

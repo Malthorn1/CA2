@@ -10,6 +10,7 @@ import entities.Address;
 import entities.Hobby;
 import entities.Person;
 import entities.Phone;
+import exceptions.PersonNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -69,10 +70,13 @@ public class PersonFacade {
         }
     }
     
-    public PersonDTO getPerson(int id){
+    public PersonDTO getPerson(int id) throws PersonNotFoundException{
         EntityManager em = emf.createEntityManager();
         try{
             Person p = em.find(Person.class, (long)id);
+            if(p  == null){
+                throw new PersonNotFoundException("No person found with that ID");
+            }
             return new PersonDTO(
                     p.getId(),
                     p.getEmail(),
@@ -129,12 +133,16 @@ public class PersonFacade {
         return person;
     }
     
-    public PersonDTO editPerson(PersonDTO p){
+    public PersonDTO editPerson(PersonDTO p) throws PersonNotFoundException{
         EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
 
             Person person = em.find(Person.class, (long)p.getId());
+            if(person == null){
+                throw new PersonNotFoundException("No person found with specified ID");
+                
+            }
             
             person.setFirstName(p.getFirstName());
             person.setLastName(p.getLastName());

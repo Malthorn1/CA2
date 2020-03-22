@@ -51,6 +51,13 @@ public class Person implements Serializable {
         this.lastName = lastName;
     }
     
+     public Person(String email, String firstName, String lastName, Long id) {
+        this.id = id;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
+    
     
     
     
@@ -108,6 +115,9 @@ public class Person implements Serializable {
     }
     public void setPhones(List<Phone> phones){
         this.phones = phones;
+        for (Phone phone : phones) {
+            phone.setPerson(this);
+        }
     }
 
 //    public Set<Hobby> getHobbies() {

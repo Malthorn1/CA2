@@ -4,8 +4,11 @@ import dto.AddressDTO;
 import dto.PersonDTO;
 import entities.Address;
 import entities.Person;
+import exceptions.AddressNotFoundException;
+import exceptions.PersonNotFoundException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import sun.jvm.hotspot.debugger.AddressException;
 
 /**
  *
@@ -50,34 +53,43 @@ public class AddressFacade {
     }
     
     
-    public PersonDTO addAddress(String street, String additionalInfo, long aDTOID){
+    public AddressDTO addAddress(String street, String additionalInfo, int aDTOID){
         AddressDTO aDTO = new AddressDTO(street, additionalInfo, aDTOID);
         EntityManager em = emf.createEntityManager();
         try{
             em.getTransaction().begin();
-            Person p = em.find(Person.class, aDTOID);
+            System.out.println("sker der");
+            Person p = em.find(Person.class, (long)aDTOID);
+            
+            System.out.println("sker der");
             Address pAddress = new Address(aDTO.getStreet(), aDTO.getAdditionalInfo());
             p.setAddress(pAddress);
             
             em.persist(pAddress);
             em.getTransaction().commit();
-            return new PersonDTO(p);
+            return new AddressDTO(pAddress.getStreet(), pAddress.getAdditionalInfo(), aDTOID);
         }finally{
             em.close();
         }
     }
     
-    public PersonDTO editAddress(AddressDTO addressDTO){
+    public AddressDTO editAddress(AddressDTO addressDTO) throws AddressNotFoundException{
         EntityManager em = getEntityManager();
         
         try{
             em.getTransaction().begin();
-            Person p = em.find(Person.class, addressDTO.getpDTOID());
-            Address pAddress = new Address(addressDTO.getStreet(), addressDTO.getAdditionalInfo());
-            p.setAddress(pAddress);
+            Person p = em.find(Person.class, (long)addressDTO.getpDTOID());
+            if(p == null){
+                throw new AddressNotFoundException("No person with provided ID");
+            }
+            
+            
+            
+            p.getAddress().setAdditionalInfo(addressDTO.getAdditionalInfo());
+            p.getAddress().setStreet(addressDTO.getStreet());
             
             em.getTransaction().commit();
-            return new PersonDTO(p);
+            return new AddressDTO(addressDTO.getStreet(), addressDTO.getAdditionalInfo());
         }finally{
             em.close();
         }

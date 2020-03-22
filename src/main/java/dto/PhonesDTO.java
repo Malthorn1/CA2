@@ -16,15 +16,27 @@ import java.util.List;
 public class PhonesDTO {
     
     List<PhoneDTO> phones = new ArrayList<>();
+    private int pDTOID;
     
     public PhonesDTO(List<Phone> phoneEntities){
         for (Phone phoneEntity : phoneEntities) {
             phones.add(new PhoneDTO(phoneEntity.getNumber(), phoneEntity.getDescription()));
         }
+        this.pDTOID = pDTOID;
     }
 
     public List<PhoneDTO> getAll() {
         return phones;
     }
+
+    public int getpDTOID() {
+        return pDTOID;
+    }
+
+    public void setpDTOID(int pDTOID) {
+        this.pDTOID = pDTOID;
+    }
+    
+    
     
 }

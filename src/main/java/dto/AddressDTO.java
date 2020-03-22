@@ -17,7 +17,7 @@ public class AddressDTO {
     private String street;
     private String additionalInfo;
     private CityInfoDTO cityInfoDTO;
-    private Long pDTOID;
+    private int pDTOID;
     
 
     public AddressDTO(String street, String additionalInfo, CityInfoDTO cityInfoDTO) {
@@ -26,11 +26,12 @@ public class AddressDTO {
         this.cityInfoDTO = cityInfoDTO;
     }
 
-    public AddressDTO(String street, String additionalInfo, Long pDTOID) {
+    public AddressDTO(String street, String additionalInfo, int pDTOID) {
         this.street = street;
         this.additionalInfo = additionalInfo;
         //this.cityInfoDTO = cityInfoDTO;
         this.pDTOID = pDTOID;
+        
     }
     
     
@@ -70,11 +71,11 @@ public class AddressDTO {
         this.cityInfoDTO = cityInfoDTO;
     }
 
-    public Long getpDTOID() {
+    public int getpDTOID() {
         return pDTOID;
     }
 
-    public void setpDTOID(Long pDTOID) {
+    public void setpDTOID(int pDTOID) {
         this.pDTOID = pDTOID;
     }
     
