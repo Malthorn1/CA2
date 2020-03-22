@@ -38,8 +38,8 @@ public class EntityTest {
         Person aske = new Person("aske@thorsen.dk", "Aske", "Thorsen");
         Person jens = new Person("jens@derp.dk", "Jens", "ohhlends"); 
         
-        pf.addPerson(aske.getEmail(), aske.getFirstName(), aske.getLastName()) ; 
-        pf.addPerson(jens.getEmail(), jens.getFirstName(), jens.getLastName()); 
+   //     pf.addPerson(aske.getEmail(), aske.getFirstName(), aske.getLastName()) ; 
+   //     pf.addPerson(jens.getEmail(), jens.getFirstName(), jens.getLastName()); 
         
         Address askeaddress = new Address("Thorsengade", "nede på hjørnet");
         Address Jensaddress = new Address("Nybrovej", "Stuen A");
