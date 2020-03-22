@@ -29,19 +29,19 @@ public class AddressDTO {
     public AddressDTO(String street, String additionalInfo, Long pDTOID) {
         this.street = street;
         this.additionalInfo = additionalInfo;
-        this.cityInfoDTO = cityInfoDTO;
+        //this.cityInfoDTO = cityInfoDTO;
         this.pDTOID = pDTOID;
     }
     
     
     
-//    public AddressDTO(String street, String additionalInfo){
-//        
-//        this.street = street;
-//        this.additionalInfo = additionalInfo
-//        
-//        
-//    }
+    public AddressDTO(String street, String additionalInfo){
+        
+        this.street = street;
+        this.additionalInfo = additionalInfo;
+        
+        
+    }
     
     
     public AddressDTO(){}

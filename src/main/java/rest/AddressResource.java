@@ -4,11 +4,13 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dto.AddressDTO;
 import dto.PersonDTO;
+import entities.Person;
 import facades.AddressFacade;
 import utils.EMF_Creator;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -54,6 +56,17 @@ public class AddressResource {
 //    public String getPersonByPhoneNumber(@PathParam("number") String number) {
 //        return GSON.toJson(FACADE.getPersonByPhoneNumber(number)); 
 //    }
+    
+    @POST
+    @Path("add")
+    @Produces({MediaType.APPLICATION_JSON}) 
+    @Consumes({MediaType.APPLICATION_JSON}) 
+    public String addAddress(String address){
+        AddressDTO aDTO = GSON.fromJson(address, AddressDTO.class);
+        PersonDTO perAddress = FACADE.addAddress(aDTO.getStreet(), aDTO.getAdditionalInfo(), aDTO.getpDTOID());
+        return GSON.toJson(perAddress);
+    }
+    
     
     
     @PUT

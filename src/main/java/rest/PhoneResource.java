@@ -2,10 +2,14 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dto.PersonDTO;
+import dto.PhoneDTO;
 import utils.EMF_Creator;
 import facades.PhoneFacade;
 import javax.persistence.EntityManagerFactory;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -50,6 +54,15 @@ public class PhoneResource {
         return GSON.toJson(FACADE.getPersonByPhoneNumber(number)); 
     }
     
+    @POST
+    @Path("add")
+    @Produces({MediaType.APPLICATION_JSON}) 
+    @Consumes({MediaType.APPLICATION_JSON}) 
+    public String addPhone(String phone){
+        PhoneDTO pDTO = GSON.fromJson(phone, PhoneDTO.class);
+        PersonDTO PersonDTO = FACADE.addPhone(pDTO.getNumber(), pDTO.getDescription(), pDTO.getpDTOID());
+        return GSON.toJson(PersonDTO);
+    }
     
  
  

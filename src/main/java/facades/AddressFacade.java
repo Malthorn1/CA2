@@ -50,12 +50,18 @@ public class AddressFacade {
     }
     
     
-    public void addAddress(Address address){
+    public PersonDTO addAddress(String street, String additionalInfo, long aDTOID){
+        AddressDTO aDTO = new AddressDTO(street, additionalInfo, aDTOID);
         EntityManager em = emf.createEntityManager();
         try{
             em.getTransaction().begin();
-            em.persist(address);
+            Person p = em.find(Person.class, aDTOID);
+            Address pAddress = new Address(aDTO.getStreet(), aDTO.getAdditionalInfo());
+            p.setAddress(pAddress);
+            
+            em.persist(pAddress);
             em.getTransaction().commit();
+            return new PersonDTO(p);
         }finally{
             em.close();
         }

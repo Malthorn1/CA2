@@ -3,6 +3,7 @@ package facades;
 import dto.AddressDTO;
 import dto.CityInfoDTO;
 import dto.PersonDTO;
+import dto.PhoneDTO;
 import dto.PhonesDTO;
 import entities.Person;
 import entities.Phone;
@@ -69,6 +70,24 @@ public class PhoneFacade {
                             new CityInfoDTO(p.getAddress().getCityinfo().getZipCode(), p.getAddress().getCityinfo().getCity())),
                     new PhonesDTO(p.getPhones()));
         } finally {
+            em.close();
+        }
+    }
+    
+        public PersonDTO addPhone(String number, String description, long ID){
+        
+        EntityManager em = emf.createEntityManager();
+        try{
+            em.getTransaction().begin();
+            Person p = em.find(Person.class, ID);
+            Phone personPhone = new Phone(number, description);
+            
+            p.addPhones(personPhone);
+            
+            em.persist(personPhone);
+            em.getTransaction().commit();
+            return new PersonDTO(p);
+        }finally{
             em.close();
         }
     }
