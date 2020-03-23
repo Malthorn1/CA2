@@ -133,12 +133,12 @@ public class PersonFacade {
         return person;
     }
     
-    public PersonDTO editPerson(PersonDTO p) throws PersonNotFoundException{
+    public PersonDTO editPerson(PersonDTO p, int value) throws PersonNotFoundException{
         EntityManager em = getEntityManager();
         try {
             em.getTransaction().begin();
 
-            Person person = em.find(Person.class, (long)p.getId());
+            Person person = em.find(Person.class, (long)value);
             if(person == null){
                 throw new PersonNotFoundException("No person found with specified ID");
                 
