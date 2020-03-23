@@ -86,33 +86,24 @@ public class PersonResource {
 
 
 
-    @Path("/edit")
+    @Path("edit/{value}")
     @PUT
     @Produces({MediaType.APPLICATION_JSON})
     @Consumes({MediaType.APPLICATION_JSON})
-    public Response editPerson(String person) throws IOException, PersonNotFoundException {
+    public Response editPerson(@PathParam("value") int value, String person) throws IOException, PersonNotFoundException {
         PersonDTO personDTO = GSON.fromJson(person, PersonDTO.class);
         //AddressDTO aDTO = GSON.fromJson(addressDTO, AddressDTO.class);
         //PhonesDTO pDTO = GSON.fromJson(phoneDTO, PhonesDTO.class);
         
-            PersonDTO responseDTO = FACADE.editPerson(personDTO);
+            PersonDTO responseDTO = FACADE.editPerson(personDTO, value);
 
             return Response.ok(responseDTO).build();
         
 
     }
 
+    
+    
 
-
-//    @Path("add")
-//    @POST
-//    @Produces(MediaType.APPLICATION_JSON)
-//    @Consumes(MediaType.APPLICATION_JSON)
-//    public String addPerson(String json) {
-//    PersonDTO persDTO = GSON.fromJson(json, PersonDTO.class);
-//    PersonDTO persistedPers= FACADE.addPerson(persDTO.getEmail(),persDTO.getFirstName(), persDTO.getLastName());
-//   // PersonDTO pdto = new PersonDTO(persistedPers); 
-//    return GSON.toJson(persistedPers);
-//    }
 
 }
