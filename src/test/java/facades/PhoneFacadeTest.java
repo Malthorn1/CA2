@@ -25,12 +25,12 @@ import utils.EMF_Creator.Strategy;
 
 //Uncomment the line below, to temporarily disable this test
 //@Disabled
-public class PersonFacadeTest {
+public class PhoneFacadeTest {
 
     private static EntityManagerFactory emf;
-    private static PersonFacade facade;
+    private static PhoneFacade facade;
 
-    public PersonFacadeTest() {
+    public PhoneFacadeTest() {
     }
 
     //@BeforeAll
@@ -41,7 +41,7 @@ public class PersonFacadeTest {
                 "dev",
                 "ax2",
                 EMF_Creator.Strategy.CREATE);
-        facade = PersonFacade.getFacadeExample(emf);
+        facade = PhoneFacade.getFacadeExample(emf);
     }
 
     /*   **** HINT **** 
@@ -53,7 +53,7 @@ public class PersonFacadeTest {
     @BeforeAll
     public static void setUpClassV2() {
        emf = EMF_Creator.createEntityManagerFactory(DbSelector.TEST,Strategy.DROP_AND_CREATE);
-       facade = PersonFacade.getFacadeExample(emf);
+       facade = PhoneFacade.getFacadeExample(emf);
     }
 
     @AfterAll
@@ -73,10 +73,11 @@ public class PersonFacadeTest {
             em.createNamedQuery("Address.deleteAllRows").executeUpdate();
             em.createNamedQuery("CityInfo.deleteAllRows").executeUpdate();
             Person p1 = new Person("batman@arto.dk", "batman", "batmansen");
-            
             Person p2 = new Person("superman@arto.dk", "superman", "supermansen");
+            Person p3 = new Person("Ironman@iron.dk", "Iron", "man");
             p1.setAddress(new Address("Valbylanggade", "den er lang"));
             p2.setAddress(new Address("valdemarsgade", "LOL"));
+            
             List<Phone> phoneList1 = new ArrayList<>();
             Phone phone1 = new Phone("20204040", "Home");
             Phone phone2 = new Phone("20204040", "Work");
@@ -108,46 +109,19 @@ public class PersonFacadeTest {
 //        Remove any data after each test was run
     }
 
-    // TODO: Delete or change this method 
     @Test
     public void testAFacadeMethod() {
-        assertEquals(2, facade.getPersonCount());
+        assertEquals(2, facade.getPhoneCount());
     }
     
     
+
     @Test
-    public void testGetAllPersons(){
-       List<PersonDTO> p = facade.getAllPersons().getAll();
-       assertEquals(2, p.size());
-    }
+    public void addPhoneTest(){
+    assertEquals(2, facade.getPhoneCount());
+    facade.addPhone("30445020", "Ironmans hjemmetelefon", 1);
+    assertEquals(3, facade.getPhoneCount());
     
-    @Test
-    public void testGetPerson()throws PersonNotFoundException{
-        List<PersonDTO> pList = facade.getAllPersons().getAll();
-        
-        String email = pList.get(0).getEmail();
-        
-        long fakeid = pList.get(0).getId();
-        int id = (int)fakeid;
-        assertTrue(facade.getPerson(id).getEmail().contains(email));
-        assertEquals(pList.size(), 2);
-        
-        
-    }
-    
-    
-    @Test
-    public void testAddPerson(){
-    Person testP = new Person("Iron", "Man", "iron@man.dk");
-    Address testA = new Address("WallStreet", "10 th");
-    
-    assertEquals(2, facade.getPersonCount());
-    facade.addPerson("Iron", "Man", "iron@man.dk");
-    
-    assertEquals(3, facade.getPersonCount());
-    facade.addAddress(testP, testA);
-    
-    assertEquals(testP.getAddress().getStreet(), "WallStreet");
     
     }
 }

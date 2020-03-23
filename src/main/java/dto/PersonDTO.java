@@ -34,9 +34,9 @@ public class PersonDTO {
     }
     
     public PersonDTO(Person person){
-        this.email = person.getEmail();
         this.firstName = person.getFirstName();
         this.lastName = person.getLastName();
+        this.email = person.getEmail();
     }
 
     public PersonDTO(Long id, String email, String firstName, String lastName, AddressDTO addressDTO, PhonesDTO phonesDTO) {

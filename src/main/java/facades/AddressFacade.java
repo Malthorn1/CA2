@@ -58,10 +58,8 @@ public class AddressFacade {
         EntityManager em = emf.createEntityManager();
         try{
             em.getTransaction().begin();
-            System.out.println("sker der");
             Person p = em.find(Person.class, (long)aDTOID);
             
-            System.out.println("sker der");
             Address pAddress = new Address(aDTO.getStreet(), aDTO.getAdditionalInfo());
             p.setAddress(pAddress);
             

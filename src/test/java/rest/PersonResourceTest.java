@@ -73,7 +73,10 @@ public class PersonResourceTest {
         r2 = new Person("superman@arto.dk", "superman", "supermansen");
         try {
             em.getTransaction().begin();
+               em.createNamedQuery("Phone.deleteAllRows").executeUpdate();
             em.createNamedQuery("Person.deleteAllRows").executeUpdate();
+            em.createNamedQuery("Address.deleteAllRows").executeUpdate();
+            em.createNamedQuery("CityInfo.deleteAllRows").executeUpdate();
             em.persist(r1);
             em.persist(r2); 
             em.getTransaction().commit();
@@ -109,20 +112,20 @@ public class PersonResourceTest {
         .body("count", equalTo(2));   
     }
     
- //   @Test
+    @Test
     public void testAddPerson() {
 
         Map<String, String> content = new HashMap<>();
         
-       
+        content.put("email", "123232");
         content.put("firstName", "testFName");
         content.put("lastName", "testLName");
-        content.put("email", "123232");
+        
         
         given()
                 .contentType(ContentType.JSON)
                 .with()
-                .body(new PersonDTO("testFName", "testLName", "123232"))
+                .body(new PersonDTO("123232", "testFName", "testLName" ))
                 .when()
                 .post("/person/add")
                 .then()

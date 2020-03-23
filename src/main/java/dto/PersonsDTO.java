@@ -21,7 +21,7 @@ public class PersonsDTO {
         for (Person personEntity : personEntities) {
             all.add(new PersonDTO(personEntity.getId(),
                     personEntity.getFirstName(),
-                    personEntity.getLastName(),
+                    personEntity.getLastName(),                    
                     personEntity.getEmail(),
                     new AddressDTO(
                             personEntity.getAddress().getStreet(),
@@ -35,5 +35,7 @@ public class PersonsDTO {
     public List<PersonDTO> getAll() {
         return all;
     }
+    
+
 
 }
